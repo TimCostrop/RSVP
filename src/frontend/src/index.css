@@ -1,0 +1,27 @@
+@layer tailwind-base, primereact, tailwind-utilities;
+
+@layer tailwind-base {
+  @tailwind base;
+}
+
+@layer tailwind-utilities {
+  @tailwind components;
+  @tailwind utilities;
+}
+
+@layer base {
+	@font-face {
+		font-family: 'Garton';
+		font-style: normal;
+		src: url("/fonts/Garton.ttf") format("truetype");
+	}
+	@font-face {
+		font-family: 'Chalkboy';
+		src: url("/fonts/Chalkboy.ttf") format("truetype");
+	}
+}
+
+:root {
+	--text-green: #859a5b;
+	--text-orange: #eac087;
+}

@@ -65,7 +65,8 @@ function App() {
 												formik.setFieldValue('present', e.value);
 											}}
 										/>
-										<label htmlFor={btn.inputId} className={'cursor-pointer'}>
+										<label htmlFor={btn.inputId} className={'cursor-pointer'}
+											   onClick={() => formik.setFieldValue('present', btn.value)}>
 											{btn.labelText}
 										</label>
 									</div>

@@ -1,0 +1,10 @@
+cors:
+  allowed-origin-patterns:
+    https://localhost:[*]
+server:
+  port: 8443
+  http-port: 8080
+  ssl:
+    key-store: classpath:server.p12
+    key-store-password: changeit
+    key-password: changeit

@@ -6,6 +6,7 @@ import {Button} from "primereact/button";
 import FieldErrorMessage from "./components/FieldErrorMessage.tsx";
 import axios from "axios";
 import H1 from "./components/H1.tsx";
+import {useNavigate} from "react-router-dom";
 
 export interface RSVP {
 	who?: string,
@@ -24,7 +25,7 @@ interface RSVPErrors {
 }
 
 function App() {
-
+	const navigate = useNavigate();
 	const formik = useFormik<RSVP>({
 		initialValues: {},
 		validateOnBlur: false,
@@ -54,7 +55,7 @@ function App() {
 		},
 		onSubmit: (values) => {
 			axios.post<void>(window.REACT_APP_API_ENDPOINT + '/api/rsvp', values)
-				.then(() => console.log('I really should know what to do next.'))
+				.then(() => navigate("/submitted"))
 		}
 	});
 
@@ -150,7 +151,9 @@ function App() {
 				<Button
 					className={'w-[15rem] self-end'}
 					type={"submit"}
-					label={'Versturen'}/>
+					label={'Versturen'}
+					loading={formik.isSubmitting}
+				/>
 			</Form>
 		</FormikProvider>
 	);

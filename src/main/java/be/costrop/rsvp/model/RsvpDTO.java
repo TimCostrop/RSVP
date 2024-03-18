@@ -45,7 +45,7 @@ public class RsvpDTO {
 		));
 
 		Optional.ofNullable(amount).map("met %d"::formatted).ifPresent(values::add);
-		Optional.ofNullable(dietaryRestriction).ifPresent(values::add);
+		Optional.ofNullable(dietaryRestriction).map(DietaryRestriction::name).ifPresent(values::add);
 		Optional.ofNullable(otherDietaryRestriction).ifPresent(values::add);
 		return List.of(values);
 	}

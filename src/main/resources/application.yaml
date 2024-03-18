@@ -1,3 +1,8 @@
 spring:
   application:
     name: RSVP
+google:
+  sheets:
+    spreadsheet-id: '1ZFWSyqOcz_nCSVhyrr9f5nQK6qJlsN1nPO6MK2Nv74A'
+    sheet-reference: 'rsvp'
+    service-account-id: 'rsvp-service-account@rsvp-417119.iam.gserviceaccount.com'

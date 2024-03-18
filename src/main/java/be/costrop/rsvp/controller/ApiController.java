@@ -2,6 +2,7 @@ package be.costrop.rsvp.controller;
 
 import be.costrop.rsvp.gsheets.GoogleSheetService;
 import be.costrop.rsvp.model.RsvpDTO;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,7 @@ public class ApiController {
 
     @PostMapping("/rsvp")
 	@ResponseStatus(HttpStatus.OK)
-    public void submitRSVP(@RequestBody RsvpDTO dto) {
+	public void submitRSVP(@Valid @RequestBody RsvpDTO dto) {
 		log.info("Received stuffs! {}", dto);
 		googleSheetService.addLineToGoogleSheet(dto);
     }

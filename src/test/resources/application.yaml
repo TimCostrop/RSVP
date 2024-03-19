@@ -1,0 +1,3 @@
+cors:
+  allowed-origin-patterns:
+    https://localhost:[*]

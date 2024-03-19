@@ -54,7 +54,7 @@ function App() {
 			return errors;
 		},
 		onSubmit: (values) => {
-			axios.post<void>(window.REACT_APP_API_ENDPOINT + '/api/rsvp', values)
+			axios.post<void>('/api/rsvp', values)
 				.then(() => navigate("/submitted"))
 		}
 	});

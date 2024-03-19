@@ -1,6 +1,5 @@
 package be.costrop.rsvp.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
@@ -17,7 +16,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 @Configuration
 public class SecurityConfiguration {
@@ -30,9 +28,9 @@ public class SecurityConfiguration {
 	}
 
 	@Bean
-	public CorsConfigurationSource corsConfigurationSource(@Value("${cors.allowed-origin-patterns}") List<String> allowedOriginPatterns) {
+	public CorsConfigurationSource corsConfigurationSource(CorsConfigurationProperties corsConfigurationProperties) {
 		final CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOriginPatterns(allowedOriginPatterns);
+		configuration.setAllowedOriginPatterns(corsConfigurationProperties.getAllowedOriginPatterns());
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "HEAD", "DELETE"));
 		configuration.setAllowedHeaders(Collections.singletonList("*"));
 		configuration.setAllowCredentials(true);

@@ -1,6 +1,6 @@
 cors:
   allowed-origin-patterns:
-    https://localhost:[*]
+    - "https://localhost:[*]"
 server:
   port: 8443
   http-port: 8080

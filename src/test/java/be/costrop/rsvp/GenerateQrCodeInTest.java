@@ -19,7 +19,7 @@ public class GenerateQrCodeInTest {
 
 		try {
 			final var bitMatrix = qrCodeWriter.encode(qrCodeContent, BarcodeFormat.QR_CODE, 100, 100);
-			final var outputFile = new File("qr.png");
+			final var outputFile = new File("target/qr.png");
 			ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "png", outputFile);
 		} catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -1,5 +1,6 @@
 runtime: java21
 instance_class: F1
+entrypoint: java -jar RSVP-0.0.1-SNAPSHOT.jar
 
 handlers:
   - url: /.*

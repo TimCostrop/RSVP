@@ -8,3 +8,9 @@
 * ✔️ DNS
 * QR code to point to DNS.
 * differentiate between ceremonie/feest (queryparam)?
+
+## Updating to google appspot:
+
+```shell
+mvn package -DskipTests appengine:deploy
+```

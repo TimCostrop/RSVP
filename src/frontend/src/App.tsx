@@ -74,7 +74,7 @@ function App() {
 				<H1 title={'Wij trouwen! Kom jij ook?'}/>
 				<div className={'flex flex-col gap-3'}>
 					<label htmlFor={"firstName"}>Ik ben</label>
-					<div className={"flex flex-row gap-5"}>
+					<div className={"flex md:flex-row flex-col gap-5"}>
 						<div className={"flex flex-col gap-1 grow"}>
 							<InputText
 								name={'firstName'}

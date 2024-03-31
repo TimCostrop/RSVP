@@ -19,10 +19,11 @@ import java.util.Optional;
 @NoArgsConstructor
 public class RsvpDTO {
 	@NotBlank
-	private String who;
+	private String firstName;
+	@NotBlank
+	private String lastName;
 	@NotNull
 	private Boolean present;
-	private Integer amount;
 	private DietaryRestriction dietaryRestriction;
 	private String otherDietaryRestriction;
 
@@ -31,20 +32,19 @@ public class RsvpDTO {
 		if (!present) return true;
 
 		if (dietaryRestriction == DietaryRestriction.OTHER) {
-			return amount != null && StringUtils.isNotBlank(otherDietaryRestriction);
+			return StringUtils.isNotBlank(otherDietaryRestriction);
 		}
 
-		return amount != null && dietaryRestriction != null;
+		return dietaryRestriction != null;
 	}
 
 	public List<List<Object>> convertToRow() {
 		final List<Object> values = new ArrayList<>(List.of(
 			LocalDateTime.now().format(DateTimeFormatter.ISO_DATE_TIME),
-			who,
+			"%s %s".formatted(firstName, lastName),
 			present ? "komen" : "komen niet"
 		));
 
-		Optional.ofNullable(amount).map("met %d"::formatted).ifPresent(values::add);
 		Optional.ofNullable(dietaryRestriction).map(DietaryRestriction::name).ifPresent(values::add);
 		Optional.ofNullable(otherDietaryRestriction).ifPresent(values::add);
 		return List.of(values);

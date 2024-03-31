@@ -1,31 +1,35 @@
 import {Form, FormikProvider, useFormik} from "formik";
 import {InputText} from "primereact/inputtext";
-import {InputNumber} from "primereact/inputnumber";
 import CustomRadioButtons from "./components/RadioButton.tsx";
 import {Button} from "primereact/button";
 import FieldErrorMessage from "./components/FieldErrorMessage.tsx";
 import axios from "axios";
 import H1 from "./components/H1.tsx";
 import {useNavigate} from "react-router-dom";
+import {InputTextarea} from "primereact/inputtextarea";
 
 export interface RSVP {
-	who?: string,
+	firstName?: string,
+	lastName?: string,
 	present?: boolean,
 	amount?: number,
 	dietaryRestriction?: 'VEGAN' | 'VEGETARIAN' | 'NONE' | 'OTHER',
 	otherDietaryRestriction?: string,
+	extra?: string
 }
 
 interface RSVPErrors {
-	who?: string
+	firstName?: string,
+	lastName?: string,
 	present?: string
 	amount?: string
 	dietaryRestriction?: string
-	otherDietaryRestriction?: string
+	otherDietaryRestriction?: string,
 }
 
 function App() {
 	const navigate = useNavigate();
+
 	const formik = useFormik<RSVP>({
 		initialValues: {},
 		validateOnBlur: false,
@@ -36,9 +40,13 @@ function App() {
 			if (values.present === undefined) {
 				errors.present = required;
 			}
-			if (values.who === undefined || values.who.trim() === '') {
-				errors.who = required;
+			if (values.firstName === undefined || values.firstName.trim() === '') {
+				errors.firstName = required;
 			}
+			if (values.lastName === undefined || values.lastName.trim() === '') {
+				errors.lastName = required;
+			}
+
 			if (!values.present) {
 				return errors;
 			}
@@ -63,15 +71,32 @@ function App() {
 		<FormikProvider value={formik}>
 			<Form className={"grow flex flex-col gap-5 w-full"}>
 				<H1 title={'Wij trouwen! Kom jij ook?'}/>
-				<div className={'flex flex-col gap-5'}>
-					<label htmlFor={"who"}>Ik ben, wij zijn...</label>
-					<InputText
-						required
-						value={formik.values.who}
-						onChange={(e) =>
-							formik.setFieldValue('who', e.target.value)}
-					/>
-					{formik.errors.who && <FieldErrorMessage text={formik.errors.who}/>}
+				<div className={'flex flex-col gap-3'}>
+					<label htmlFor={"firstName"}>Ik ben</label>
+					<div className={"flex flex-row gap-5"}>
+						<div className={"flex flex-col gap-1 grow"}>
+							<InputText
+								name={'firstName'}
+								placeholder={'voornaam'}
+								required
+								value={formik.values.firstName}
+								onChange={(e) =>
+									formik.setFieldValue('firstName', e.target.value)}
+							/>
+							{formik.errors.firstName && <FieldErrorMessage text={formik.errors.firstName}/>}
+						</div>
+						<div className={"flex flex-col gap-1 grow"}>
+							<InputText
+								name={'lastName'}
+								required
+								placeholder={'achternaam'}
+								value={formik.values.lastName}
+								onChange={(e) =>
+									formik.setFieldValue('lastName', e.target.value)}
+							/>
+							{formik.errors.lastName && <FieldErrorMessage text={formik.errors.lastName}/>}
+						</div>
+					</div>
 				</div>
 				<div className={'flex flex-col gap-5'}>
 					<label>en...</label>
@@ -80,54 +105,44 @@ function App() {
 							id: 'present',
 							value: true,
 							inputId: 'present',
-							labelText: 'ik ben / wij zijn graag van de partij!'
+							labelText: 'ik ben graag van de partij!'
 						},
 						{
 							id: 'absent',
 							value: false,
 							inputId: 'absent',
-							labelText: 'kunnen er helaas niet bij zijn :('
+							labelText: 'ik kan er helaas niet bij zijn :('
 						}
 					]}/>
 					{formik.errors.present && <FieldErrorMessage text={formik.errors.present}/>}
 				</div>
 				{formik.values.present && <>
 					<div className={'flex flex-col gap-5'}>
-						<label htmlFor={"amount"}>Ik kom / wij komen met ...</label>
-						<InputNumber
-							placeholder={'x aantal personen'}
-							required={formik.values.present}
-							value={formik.values.amount}
-							onChange={(e) =>
-								formik.setFieldValue('amount', e.value)}
-						/>
-						{formik.errors.amount && <FieldErrorMessage text={formik.errors.amount}/>}
-					</div>
-					<div className={'flex flex-col gap-5'}>
+						<label htmlFor={"dietaryRestriction"}>en ...</label>
 						<CustomRadioButtons name={'dietaryRestriction'} buttons={[
 							{
 								id: 'none',
 								value: 'NONE',
 								inputId: 'none',
-								labelText: 'ik eet / wij eten alles!'
+								labelText: 'ik eet / wij eten alles'
 							},
 							{
 								id: 'vegetarian',
 								value: 'VEGETARIAN',
 								inputId: 'vegetarian',
-								labelText: 'geen vlees of vis a.u.b.'
+								labelText: 'vegetarisch'
 							},
 							{
 								id: 'vegan',
 								value: 'VEGAN',
 								inputId: 'vegan',
-								labelText: 'vegan!'
+								labelText: 'vegan'
 							},
 							{
 								id: 'allergies',
 								value: 'OTHER',
 								inputId: 'allergies',
-								labelText: 'ik ben allergisch aan...'
+								labelText: 'ik ben allergisch/intolerant aan...'
 							}
 						]}/>
 						{formik.errors.dietaryRestriction &&
@@ -137,7 +152,6 @@ function App() {
 						<div className={'flex flex-col gap-5'}>
 							<InputText
 								required
-								placeholder={'melk en eieren?'}
 								value={formik.values.otherDietaryRestriction}
 								onChange={(e) =>
 									formik.setFieldValue('otherDietaryRestriction', e.target.value)}
@@ -147,6 +161,16 @@ function App() {
 						</div>
 					</>}
 				</>}
+				<div className={'flex flex-col gap-5 mt-[3rem]'}>
+					<label htmlFor={"extra"}>Dit wil ik ook nog kwijt ...</label>
+					<InputTextarea
+						name={"extra"}
+						value={formik.values.extra}
+						onChange={(e) =>
+							formik.setFieldValue('extra', e.target.value)}
+					/>
+
+				</div>
 
 				<Button
 					className={'w-[15rem] self-end'}

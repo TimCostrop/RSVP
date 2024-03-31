@@ -19,9 +19,23 @@
 		font-family: 'Chalkboy';
 		src: url("/fonts/Chalkboy.ttf") format("truetype");
 	}
+
+	@font-face {
+		font-family: "Parisienne", cursive;
+		font-weight: 400;
+		font-style: normal;
+	}
+
+	@font-face {
+		font-family: "Prata", serif;
+		font-weight: 400;
+		font-style: normal;
+	}
+
 }
 
 :root {
 	--text-green: #859a5b;
 	--text-orange: #eac087;
+	--text-red: #BD2726;
 }

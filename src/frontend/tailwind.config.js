@@ -12,11 +12,14 @@ export default {
                 "sans": ["Montserrat"],
                 "regular": ["Montserrat"],
 				"garton": ["Garton"],
-				"chalkboy": ["Chalkboy"]
+				"chalkboy": ["Chalkboy"],
+				"parisienne": ["Parisienne"],
+				"prata": ["Prata"],
             },
             colors: {
 				"green": 'var(--text-green)',
-				"orange": 'var(--text-orange)'
+				"orange": 'var(--text-orange)',
+				"red": 'var(--text-red)'
             },
 			backgroundImage: {
 				'texture': 'url(/img/Background.png)',

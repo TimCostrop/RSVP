@@ -53,6 +53,12 @@
 			<version>3.5.3</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreesvg</artifactId>
+			<version>3.4.3</version>
+			<scope>test</scope>
+		</dependency>
 
 		<!--Google sheets API-->
 		<dependency>

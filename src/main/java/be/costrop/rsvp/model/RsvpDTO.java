@@ -26,6 +26,7 @@ public class RsvpDTO {
 	private Boolean present;
 	private DietaryRestriction dietaryRestriction;
 	private String otherDietaryRestriction;
+	private String extra;
 
 	@AssertTrue
 	public boolean isValid() {
@@ -47,6 +48,7 @@ public class RsvpDTO {
 
 		Optional.ofNullable(dietaryRestriction).map(DietaryRestriction::name).ifPresent(values::add);
 		Optional.ofNullable(otherDietaryRestriction).ifPresent(values::add);
+		Optional.ofNullable(extra).filter(StringUtils::isNotBlank).ifPresent(values::add);
 		return List.of(values);
 	}
 }

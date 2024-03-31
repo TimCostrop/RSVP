@@ -12,7 +12,6 @@ export interface RSVP {
 	firstName?: string,
 	lastName?: string,
 	present?: boolean,
-	amount?: number,
 	dietaryRestriction?: 'VEGAN' | 'VEGETARIAN' | 'NONE' | 'OTHER',
 	otherDietaryRestriction?: string,
 	extra?: string
@@ -31,7 +30,12 @@ function App() {
 	const navigate = useNavigate();
 
 	const formik = useFormik<RSVP>({
-		initialValues: {},
+		initialValues: {
+			firstName: '',
+			lastName: '',
+			otherDietaryRestriction: '',
+			extra: ''
+		},
 		validateOnBlur: false,
 		validateOnChange: false,
 		validate: (values) => {
@@ -46,12 +50,8 @@ function App() {
 			if (values.lastName === undefined || values.lastName.trim() === '') {
 				errors.lastName = required;
 			}
-
 			if (!values.present) {
 				return errors;
-			}
-			if (values.amount === undefined || values.amount <= 0) {
-				errors.amount = required;
 			}
 			if (values.dietaryRestriction === undefined) {
 				errors.dietaryRestriction = required;
@@ -62,6 +62,7 @@ function App() {
 			return errors;
 		},
 		onSubmit: (values) => {
+			console.log("sending!", values)
 			axios.post<void>('/api/rsvp', values)
 				.then(() => navigate("/submitted"))
 		}

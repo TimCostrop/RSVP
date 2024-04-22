@@ -9,10 +9,10 @@ export interface CustomRadioButtonProps {
 	labelText: string
 }
 
-const CustomRadioButtons = (props: {
+export default function CustomRadioButtons(props: {
 	name: keyof RSVP,
 	buttons: CustomRadioButtonProps[]
-}) => {
+}) {
 	const formik = useFormikContext<RSVP>();
 
 	return props.buttons.map(btn =>
@@ -25,14 +25,13 @@ const CustomRadioButtons = (props: {
 				name={props.name}
 				checked={formik.values[props.name] === btn.value}
 				onChange={(e) => {
-					formik.setFieldValue(props.name, e.value);
+					void formik.setFieldValue(props.name, e.value);
 				}}
 			/>
-			<label htmlFor={btn.inputId} className={'cursor-pointer'}
-				   onClick={() => formik.setFieldValue(props.name, btn.value)}>
+			<label
+				htmlFor={btn.inputId} className={'cursor-pointer'}
+				onClick={() => void formik.setFieldValue(props.name, btn.value)}>
 				{btn.labelText}
 			</label>
 		</div>)
 }
-
-export default CustomRadioButtons;

@@ -26,7 +26,7 @@ interface RSVPErrors {
 	otherDietaryRestriction?: string,
 }
 
-function App() {
+export default function App() {
 	const navigate = useNavigate();
 
 	const formik = useFormik<RSVP>({
@@ -61,11 +61,8 @@ function App() {
 			}
 			return errors;
 		},
-		onSubmit: (values) => {
-			console.log("sending!", values)
-			axios.post<void>('/api/rsvp', values)
+		onSubmit: (values) => void axios.post<void>('/api/rsvp', values)
 				.then(() => navigate("/submitted"))
-		}
 	});
 
 	return (
@@ -82,7 +79,7 @@ function App() {
 								required
 								value={formik.values.firstName}
 								onChange={(e) =>
-									formik.setFieldValue('firstName', e.target.value)}
+									void formik.setFieldValue('firstName', e.target.value)}
 							/>
 							{formik.errors.firstName && <FieldErrorMessage text={formik.errors.firstName}/>}
 						</div>
@@ -93,7 +90,7 @@ function App() {
 								placeholder={'achternaam'}
 								value={formik.values.lastName}
 								onChange={(e) =>
-									formik.setFieldValue('lastName', e.target.value)}
+									void formik.setFieldValue('lastName', e.target.value)}
 							/>
 							{formik.errors.lastName && <FieldErrorMessage text={formik.errors.lastName}/>}
 						</div>
@@ -155,7 +152,7 @@ function App() {
 								required
 								value={formik.values.otherDietaryRestriction}
 								onChange={(e) =>
-									formik.setFieldValue('otherDietaryRestriction', e.target.value)}
+									void formik.setFieldValue('otherDietaryRestriction', e.target.value)}
 							/>
 							{formik.errors.otherDietaryRestriction &&
 								<FieldErrorMessage text={formik.errors.otherDietaryRestriction}/>}
@@ -168,7 +165,7 @@ function App() {
 						name={"extra"}
 						value={formik.values.extra}
 						onChange={(e) =>
-							formik.setFieldValue('extra', e.target.value)}
+							void formik.setFieldValue('extra', e.target.value)}
 					/>
 
 				</div>
@@ -183,5 +180,3 @@ function App() {
 		</FormikProvider>
 	);
 }
-
-export default App;

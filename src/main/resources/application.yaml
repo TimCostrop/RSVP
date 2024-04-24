@@ -5,6 +5,7 @@ cors:
   allowed-origin-patterns:
     - "https://rsvp-417119.ew.r.appspot.com/"
     - "https://tim-en-laura-anne-trouwen.be"
+    - "https://www.tim-en-laura-anne-trouwen.be"
 google:
   sheets:
     spreadsheet-id: '1ZFWSyqOcz_nCSVhyrr9f5nQK6qJlsN1nPO6MK2Nv74A'
